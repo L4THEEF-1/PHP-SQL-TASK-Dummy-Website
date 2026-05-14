@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit a Review</title>
+    <style>
+        @font-face {
+            font-family: 'Poppins'; src: url(Poppins.ttf);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to top, rgba(0, 40, 72, 1), rgba(16, 62, 98, 1), rgba(30, 88, 128, 1), rgba(159, 227, 238, 1));
+            color: whitesmoke;
+            max-width: 600px;
+            overflow: hidden;
+            margin: 0 auto;
+            padding: 20px;
+            height: 100vh;
+        }
+
+        h1{
+            font-family: 'Poppins', sans-serif;
+            text-transform: uppercase;
+            text-align: center;
+            text-shadow: 1px black;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        input, textarea {
+            padding: 5px;
+            height: 120px;
+            margin-bottom: 35px;
+            font-size: 1rem;
+            border-radius: 10px;
+            border: 2px solid whitesmoke;
+            box-shadow: 0 0 20px 1px rgba(167, 208, 234, 0.2);
+            opacity: 80%;
+        }
+
+        input, textarea #review{
+            padding: 5px;
+            height: 45px;
+            font-size: 1rem;
+        }
+
+        button {
+            color: #fff;
+            cursor: pointer;
+            padding: 15px 0;
+            text-align: center;
+            border-radius: 23px;
+            font-weight: bold;
+            border: none;
+            background: transparent;
+            text-transform: uppercase;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            font-size: 15px;
+        }
+
+        button:hover span{
+            height: 100%;
+        }
+
+        span {
+            background: linear-gradient(to bottom, rgba(167, 208, 234, 1), rgba(178, 216, 238, 1), rgba(190, 225, 245, 1), rgba(201, 233, 245, 1));
+            height: 0;
+            width: 100%;
+            border-radius: 2px;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            z-index: -1;
+            transition: 2s;
+        }
+
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            bottom: 0;
+            pointer-events: none; 
+            z-index: -1000;
+            font-size: 25px, 30px, 35px, 40px;
+            color: rgba(167, 208, 234, 1);
+            opacity: 1, 0.5;
+            rotate: 180deg;
+            user-select: none;
+            animation: snow 10s linear infinite;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* Snowflake animation */
+        @keyframes snow {
+            0% {
+                transform: translateX(0) translateY(0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateX(50px) translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        .dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        .dark-mode-button{
+            width: 25px;
+            height: 25px;
+
+        }
+
+        .dark-mode .dark-mode-button{
+            width: 25px;
+            height: 25px;
+            content: url(sun.png);
+
+        }
+
+        .dark-mode input,
+        .dark-mode textarea,
+        .dark-mode placeholder form{
+            background-color: #444;
+            border-color: #555;
+            color: whitesmoke;
+        }
+
+    </style>
+</head>
+<body>
+    <div style="position: fixed; top: 10px; right: 20px;">
+        <button onclick="toggleDarkMode()"><img class="dark-mode-button" src="moon.png" alt="Dark Mode"></button>
+    </div>
+    <h1>Submit Your Review</h1>
+    <form action="process.html" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        
+        <label for="review">Review:</label>
+        <textarea id="review" name="review" required></textarea>
+        
+        <button type="submit"><span></span>Submit</button>
+    </form>
+
+    <script>
+
+        function generateSnowflakes() {
+            const numberOfSnowflakes = 5; 
+            const snowflakeContainer = document.body;
+
+            setInterval(() => {  
+                for (let i = 0; i < numberOfSnowflakes; i++) {
+                    const snowflake = document.createElement('div');
+                    snowflake.classList.add('snowflake');
+                    snowflake.textContent = '●';  // 
+
+
+                    snowflake.style.left = `${Math.random() * 100}vw`;  
+
+
+                    snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`;  
+
+
+                    const size = Math.random() * 15 + 5;  
+                    snowflake.style.fontSize = `${size}px`;
+
+
+                    snowflake.style.opacity = Math.random() * 0.5 + 0.5;  
+
+
+                    snowflakeContainer.appendChild(snowflake);
+
+
+                    setTimeout(() => {
+                        snowflake.remove();
+                    }, parseFloat(snowflake.style.animationDuration) * 1000); 
+                }
+            }, 300);  
+        }
+
+
+        generateSnowflakes();
+
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+    </script>
+</body>
+</html>
